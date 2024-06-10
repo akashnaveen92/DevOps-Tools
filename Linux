@@ -1,0 +1,49 @@
+Get Source IP: 
+-------------
+awk '{ print $1}' ssl_access_log | sort | uniq -c | sort -nr > iplist.txt
+
+========================================================================
+Find And Replace:
+-----------------
+sed -i 's/oldIP/newIP/g' *
+find ./ -type f -exec sed -i 's/string1/string2/g' {} \;
+find ./ -type f -exec sed -i -e 's/OLDPatten/NewPattern/g' {} \;
+find ./ -type f -exec sed -i 's/string1/string2/gI' {} \;
+find ./ -type f -exec sed -i 's/string1/string2/' {} \;
+
+find ./ -type f -exec sed -i -e 's/mydomain.com/mydomain.com/g' {} \;
+========================================================================
+BTRFS:
+------
+btrfs fi show
+btrfs balance start -dusage=1 /
+
+=======================================================================
+AutoDelete log file:
+--------------------
+#!/bin/sh
+/usr/bin/find /webdata/gclogs/ -type f -mtime +30 -exec rm {} +
+
+#!/bin/sh
+# /etc/cron.monthly/standard: standard monthly maintenance script
+cd /fullpathofyourdir/ 
+echo "Deleting *.out0 Files"
+find . -name '*.out0*' -mtime +30 -type f | xargs rm -rf
+echo "Deleting *.log0 Files"
+find . -name '*.log0*' -mtime +30 -type f | xargs rm -rf
+
+=======================================================================
+
+Update the –Indexes for document root in httpd.conf:
+----------------------------------------------------
+
+<Directory />
+      Options -Indexes
+</Directory>
+<Directory /usr/local/apache2/htdocs/resources>
+    Options -Indexes
+</Directory>
+<Directory /usr/local/apache2/htdocs/assets/oracle>
+    Options -Indexes
+</Directory>
+Options -Indexes
